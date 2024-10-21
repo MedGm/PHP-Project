@@ -1,0 +1,247 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    background-image: url("fsttbg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+ul.logos {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.fst-logo {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.uni-logo {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.login-box {
+    text-align: center;
+    background-color: rgba(240, 248, 255, 0.9);
+    width: 380px;
+    padding: 18px;
+    margin: 100px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-box h1 {
+    margin-bottom: 18px;
+    color: #182383;
+    font-size: 33px;
+}
+
+button {
+    display: inline-block;
+    padding: 8px 18px;
+    margin: 10px 0;
+    color: #182383;
+    background-color: rgb(201, 201, 199);
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background-color: #182383;
+    color: white;
+}
+
+button {
+    padding: 8px 38px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* professor.php , student.php and student2.php*/
+
+form .container {
+    width: 1000px;
+    height: 450px;
+    max-height: 800px;
+    margin: 40px auto;
+    border-radius: 20px;
+    background-color: #f8f8f8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+
+.container h1 {
+    margin-bottom: 20px;
+    color: #182383;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 35px;
+    text-align: center;
+}
+
+.top-button input[type="submit"] {
+    padding: 10px 20px;
+    margin: 10px 10px;
+    position: relative;
+    top: 10px;
+    left: 40%;
+    color: #182383;
+    background-color: rgb(201, 201, 199);
+    border: none;
+    border-radius: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.5s ease-in-out;
+}
+
+.student-list input[type="submit"] , .addstudent input[type="submit"] , .modify input[type="submit"] {
+    padding: 10px 20px;
+    margin: 10px 10px;
+    color: #182383;
+    background-color: rgb(201, 201, 199);
+    border: none;
+    border-radius: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.5s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    transition: all 0.5s ease-in-out;
+    background-color: #182383;
+    color: white;
+}
+
+.student-list {
+    margin: 20px auto;
+    width: 95%;
+    max-width: 950px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.styled-table thead {
+    background-color: #f0f0f0;
+    color: #182383;
+}
+
+.styled-table th, .styled-table td {
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    width: 35%;
+}
+
+.search-bar input[type="submit"] {
+    padding: 10px 20px;
+    position: relative;
+    color: #182383;
+    background-color: rgb(201, 201, 199);
+    border: none;
+    border-radius: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    transition: all 0.5s ease-in-out;
+}
+
+/* addstudent.php */
+.addstudent , .modify{
+    text-align: center;
+    background-color: aliceblue;
+    width: 330px;
+    height: auto;
+    padding: 18px;
+    justify-content: center;
+    align-items: center;
+    margin: 80px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    opacity: 0.95;
+    box-sizing: border-box;
+    border: 1px solid #182383;
+}
+
+.addstudent h1 , .modify h1 {
+    margin-bottom: 50px;
+    color: #182383; 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 32px;
+}
+
+input[type="text"] {
+    display: block;
+    padding: 8px;
+    width: 230px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    margin: 10px auto;
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: left;
+}
+
+input[type="text"]:focus {
+    border-color: #182383;
+    outline: none;
+    box-shadow: 0 0 5px rgba(24, 35, 131, 0.5);
+}
+
+select {
+    display: inline-block;
+    padding: 8px;
+    width: 230px;
+    margin: 10px 0;
+    color: #182383;
+    background-color: rgb(201, 201, 199);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+select:hover {
+    transform: scale(1.1);
+    background-color: #182383;
+    color: white;
+}

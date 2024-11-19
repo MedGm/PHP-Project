@@ -1,0 +1,435 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+:root {
+    --primary-color: #003366;
+    --secondary-color: #0066cc;
+    --accent-color: #f0f8ff;
+    --transition: all 0.3s ease;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+    min-height: 100vh;
+}
+
+ul.logos {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.logos {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    animation: slideDown 0.5s ease;
+}
+
+.logos img {
+    transition: var(--transition);
+}
+
+.logos img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.fst-logo {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.uni-logo {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin: 50px auto;
+    animation: fadeIn 0.8s ease;
+}
+
+.login-box h1 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2em;
+}
+button {
+    display: inline-block;
+    padding: 8px 18px;
+    margin: 10px 0;
+    color: #182383;
+    background-color: rgb(201, 201, 199);
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background-color: #182383;
+    color: white;
+}
+
+button {
+    padding: 8px 38px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+
+
+input[type="text"] {
+    display: block;
+    padding: 8px;
+    width: 230px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    margin: 10px auto;
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: left;
+}
+
+input[type="text"]:focus {
+    border-color: #182383;
+    outline: none;
+    box-shadow: 0 0 5px rgba(24, 35, 131, 0.5);
+}
+
+select {
+    display: inline-block;
+    padding: 8px;
+    width: 230px;
+    margin: 10px 0;
+    color: #182383;
+    background-color: rgb(201, 201, 199);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+select:hover {
+    transform: scale(1.1);
+    background-color: #182383;
+    color: white;
+}
+
+
+.error {
+    color: #ff0000;
+    margin-top: 10px;
+}
+
+.success {
+    color: #008000;
+    margin-top: 10px;
+}
+
+footer {
+    background: var(--primary-color) !important;
+    color: white !important;
+    padding: 15px 0;
+    font-size: 14px;
+    animation: slideUp 0.5s ease;
+}
+/* Form Layout */
+.form-sections {
+    display: grid;
+    grid-template-areas: 
+        "personal academic"
+        "contact program";
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+/* Section Placements */
+.section:nth-child(1) { grid-area: personal; }
+.section:nth-child(2) { grid-area: contact; }
+.section:nth-child(3) { grid-area: academic; }
+.section:nth-child(4) { grid-area: program; }
+
+.section {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: #fafbfc; /* Subtle light gray */
+}
+
+.section-title {
+    color: #2d3748;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.input-group {
+    margin-bottom: 1.25rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background-color: #f8fafc;
+}
+
+.input-group input:hover,
+.input-group select:hover {
+    border-color: #cbd5e0;
+    background-color: #f0f7ff; /* Very light blue */
+    border-color: #0066cc;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+    outline: none;
+    background-color: #ffffff;
+}
+
+.submit-section {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.submit-section input[type="submit"] {
+    padding: 0.75rem 2rem;
+    background: linear-gradient(45deg, #4299e1, #667eea);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-section input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+    background: linear-gradient(45deg, #1a75ff, #3366ff); /* Brighter blue gradient */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 117, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .form-sections {
+        grid-template-areas: 
+            "personal"
+            "contact"
+            "academic"
+            "program";
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin: 1rem;
+    }
+}
+/* Base Input Styles */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+input[type="submit"],
+input[type="file"],
+select,
+button {
+    width: calc(100% - 50px);
+    padding: 12px 15px;
+    margin: 8px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+    background-color: #f8fafc;
+}
+
+/* Button Specific Styles */
+button,
+input[type="submit"],
+input[type="file"] {
+    width: auto;
+    min-width: 120px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+/* Select Specific Styles */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+    padding-right: 45px;
+}
+
+/* Focus States */
+input:focus,
+select:focus,
+button:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/* Hover States */
+input:hover,
+select:hover {
+    border-color: var(--secondary-color);
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="file"]:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #004d99; /* Darker blue */
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+select:hover {
+    background-color: #e6f0ff; /* Light blue */
+    color: #003366;
+    border-color: #0066cc;
+}
+
+/* Section Title */
+.addstudent h1 {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+/* Top Button Container */
+.top-button {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+    gap: 10px;
+}
+
+/* Single Media Query for Mobile */
+@media (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="submit"],
+    input[type="file"],
+    select,
+    button {
+        width: calc(100% - 20px);
+        margin: 8px 10px;
+    }
+
+    .top-button {
+        flex-direction: column;
+        margin: 15px;
+    }
+}
+
+
+input[name="logout"]:hover {
+    background-color: #c82333; /* Darker red */
+}
+
+input[name="addstudent"]:hover {
+    background-color: #218838; /* Darker green */
+}
+
+.container {
+    height: 200px;
+    max-width: 650px;
+    margin: 200px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    h1{
+        margin-bottom: 30px;
+        text-align: center;
+    }
+}
+
+.user-details {
+    margin: 20px 0;
+}
+
+.detail-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.label {
+    width: 150px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.value {
+    flex: 1;
+}
+
+.download-form {
+    text-align: center;
+    margin-top: 30px;
+}

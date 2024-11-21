@@ -1,4 +1,5 @@
-# FSTT Student Application Management System
+# FSTT Student Application Management System <img src="https://fstt.ac.ma/Portail2023/wp-content/uploads/2023/03/Untitled-3-300x300.png" alt="FSTT Logo" width="30" height="30">
+
 
 ## Overview
 A web-based application management system for the Faculty of Sciences and Technologies Tangier (FSTT), handling student applications for Engineering (CI) and Master's (MST) programs.

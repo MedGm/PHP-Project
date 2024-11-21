@@ -127,10 +127,10 @@ if(isset($_SESSION['email'])){
 
                 // lqa3
                 $currentY = $pdf->GetY();
-                if ($currentY > 260) { 
+                if ($currentY > 250) {
                     $pdf->AddPage();
                 }
-                $pdf->SetY(max($currentY, 260)); 
+                $pdf->SetY(max($currentY, 265)); 
                 $pdf->SetFont('Arial', 'I', 10);
                 $pdf->Cell(0, 10, 'www.fstt.ac.ma', 0, 1, 'C');
                 $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
@@ -199,10 +199,10 @@ if(isset($_SESSION['email'])){
 
                 // lqa3
                 $currentY = $pdf->GetY();
-                if ($currentY > 250) {
+                if ($currentY > 265) {
                     $pdf->AddPage();
                 }
-                $pdf->SetY(max($currentY, 250)); 
+                $pdf->SetY(max($currentY, 265)); 
                 $pdf->SetFont('Arial', 'I', 10);
                 $pdf->Cell(0, 10, 'www.fstt.ac.ma', 0, 1, 'C');
                 $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());

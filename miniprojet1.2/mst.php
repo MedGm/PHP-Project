@@ -203,20 +203,36 @@
                 <option value="GE" hidden>Genie Energitique</option>
                 <option value="MMSD" hidden>Modélisation Mathématique et Science de Données</option>
             </select>
+            <div class="input-group">
             <p>Ajouter votre photo (JPG/PNG) :</p>
             <p><B>la taille ne depasse pas 1MB</B></p>
-            <input type="file" name="image" accept="image/jpeg,image/png" required>
-            <?php if($uploadError): ?>
-            <p style="color: red;"><?php echo $uploadError; ?></p>
-            <?php endif; ?>
-            <p>Mettre votre fichier ici (sous forme <I>pdf</I> ) :<br><B>la taille ne depasse pas 5MB</B></p>
-            <input type="file" name="upload" accept=".pdf" required>
-            <input type="submit" name="submit" value="Finish">
+            <input type="file" name="image" id="image" accept="image/jpeg,image/png">
+            <label for="image"><span>No image chosen</span></label>
         </div>
+        
+        <div class="input-group">
+            <p>Mettre votre fichier ici (sous forme <I>pdf</I> ) :<br><B>la taille ne depasse pas 5MB</B></p>
+            <input type="file" name="upload" id="upload" accept=".pdf">
+            <label for="upload"><span>No file chosen</span></label>
+        </div>
+        <input type="submit" name="submit" value="Finish">
+        <p style="color: red;"><?php echo $uploadError; ?></p>
+    </div>
 </form>
 </body>
 </html>
 <script>
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+    input.addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name || 'No file chosen';
+        const label = e.target.nextElementSibling;
+        const span = label.querySelector('span') || document.createElement('span');
+        span.textContent = fileName;
+        if (!label.querySelector('span')) {
+            label.appendChild(span);
+        }
+    });
+});
     document.addEventListener('DOMContentLoaded', function() {
     const lstSelect = document.querySelector('select:first-of-type');
     const mstSelect = document.querySelector('select:last-of-type');

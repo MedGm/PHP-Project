@@ -79,7 +79,7 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
             $imageTmpName = $image['tmp_name'];
             $imageError = $image['error'];
             
-            // Validate image
+            // katchoflek wach l'image dayza (jpg/png)
             $allowedTypes = ['image/jpeg', 'image/png'];
             if(!in_array($imageType, $allowedTypes)) {
                 $uploadError = "Only JPG and PNG images are allowed";
@@ -201,19 +201,37 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
                 <option value="GEMI">Genie Electrique et Management Industriel</option>
                 <option value="GA">Genie Agroalimentaire</option>
             </select>
+
+
+        <div class="input-group">
             <p>Ajouter votre photo (JPG/PNG) :<br><B>la taille max 1MB</B></p>
-            <input type="file" name="image" accept="image/jpeg,image/png" required>
-            <?php if($uploadError): ?>
-            <p style="color: red;"><?php echo $uploadError; ?></p>
-            <?php endif; ?>
-            <p>Mettre votre fichier ici (sous forme <I>pdf</I> ) :<br><B>la taille max 5MB</B></p>
-            <input type="file" name="upload" accept=".pdf" required>
+            <input type="file" name="image" id="image" accept="image/jpeg,image/png">
+            <label for="image"><span>No image chosen</span></label>
+        </div>
+        
+        <div class="input-group">
+        <p>Mettre votre fichier ici (sous forme <I>pdf</I> ) :<br><B>la taille max 5MB</B></p>
+            <input type="file" name="upload" id="upload" accept=".pdf">
+            <label for="upload"><span>No file chosen</span></label>
+        </div>
             <input type="submit" name="submit" value="Finish">
-            </div>
+            <p style="color: red;"><?php echo $uploadError; ?></p>
+        </div>
 </form>
 </body>
 </html>
 <script>
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+    input.addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name || 'No file chosen';
+        const label = e.target.nextElementSibling;
+        const span = label.querySelector('span') || document.createElement('span');
+        span.textContent = fileName;
+        if (!label.querySelector('span')) {
+            label.appendChild(span);
+        }
+    });
+});
     document.querySelector('form').addEventListener('submit', function(e) {
     const fileInput = document.querySelector('input[type="file"]');
     if (!fileInput.files.length) {

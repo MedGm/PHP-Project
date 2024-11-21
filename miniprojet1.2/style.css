@@ -27,7 +27,7 @@ ul.logos {
 .logos {
     display: flex;
     justify-content: space-between;
-    padding: 20px 50px;
+    padding: 16px 40px;
     background: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     animation: slideDown 0.5s ease;
@@ -56,29 +56,29 @@ ul.logos {
 
 .login-box {
     background: white;
-    padding: 30px;
+    padding: 24px;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    max-width: 400px;
-    margin: 50px auto;
+    max-width: 320px;
+    margin: 40px auto;
     animation: fadeIn 0.8s ease;
 }
 
 .login-box h1 {
     color: var(--primary-color);
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     text-align: center;
-    font-size: 2em;
+    font-size: 1.6em;
 }
 button {
     display: inline-block;
-    padding: 8px 18px;
-    margin: 10px 0;
+    padding: 6px 14px;
+    margin: 8px 0;
     color: #182383;
     background-color: rgb(201, 201, 199);
     border: none;
-    border-radius: 5px;
-    font-size: 14px;
+    border-radius: 4px;
+    font-size: 11px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -89,7 +89,7 @@ button:hover {
 }
 
 button {
-    padding: 8px 38px;
+    padding: 6px 30px;
 }
 
 button:hover {
@@ -100,12 +100,12 @@ button:hover {
 
 input[type="text"] {
     display: block;
-    padding: 8px;
-    width: 230px;
-    border-radius: 5px;
+    padding: 6px;
+    width: 184px;
+    border-radius: 4px;
     border: 1px solid #000;
-    margin: 10px auto;
-    font-size: 16px;
+    margin: 8px auto;
+    font-size: 13px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: left;
 }
@@ -118,14 +118,14 @@ input[type="text"]:focus {
 
 select {
     display: inline-block;
-    padding: 8px;
-    width: 230px;
-    margin: 10px 0;
+    padding: 6px;
+    width: 184px;
+    margin: 8px 0;
     color: #182383;
     background-color: rgb(201, 201, 199);
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 4px;
+    font-size: 13px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -149,8 +149,8 @@ select:hover {
 footer {
     background: var(--primary-color) !important;
     color: white !important;
-    padding: 15px 0;
-    font-size: 14px;
+    padding: 12px 0;
+    font-size: 11px;
     animation: slideUp 0.5s ease;
 }
 /* Form Layout */
@@ -160,9 +160,9 @@ footer {
         "personal academic"
         "contact program";
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    margin: 2rem auto;
-    max-width: 1200px;
+    gap: 1.6rem;
+    margin: 1.6rem auto;
+    max-width: 960px;
 }
 
 /* Section Placements */
@@ -173,8 +173,8 @@ footer {
 
 .section {
     background: #ffffff;
-    padding: 2rem;
-    border-radius: 12px;
+    padding: 1.6rem;
+    border-radius: 10px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease;
 }
@@ -187,32 +187,32 @@ footer {
 
 .section-title {
     color: #2d3748;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
     border-bottom: 2px solid #e2e8f0;
 }
 
 .input-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     color: #4a5568;
-    font-size: 0.875rem;
+    font-size: 0.7rem;
     font-weight: 500;
 }
 
 .input-group input,
 .input-group select {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.6rem 0.8rem;
     border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 0.95rem;
+    border-radius: 6px;
+    font-size: 0.76rem;
     transition: all 0.3s ease;
     background-color: #f8fafc;
 }
@@ -234,16 +234,16 @@ footer {
 
 .submit-section {
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 1.6rem;
 }
 
 .submit-section input[type="submit"] {
-    padding: 0.75rem 2rem;
+    padding: 0.6rem 1.6rem;
     background: linear-gradient(45deg, #4299e1, #667eea);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -277,14 +277,15 @@ input[type="tel"],
 input[type="date"],
 input[type="submit"],
 input[type="file"],
+input[type="password"],
 select,
 button {
-    width: calc(100% - 50px);
-    padding: 12px 15px;
-    margin: 8px 15px;
+    width: calc(100% - 40px);
+    padding: 10px 12px;
+    margin: 6px 12px;
     border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
+    border-radius: 6px;
+    font-size: 11px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: all 0.3s ease;
     background-color: #f8fafc;
@@ -295,13 +296,13 @@ button,
 input[type="submit"],
 input[type="file"] {
     width: auto;
-    min-width: 120px;
+    min-width: 96px;
     background: var(--primary-color);
     color: white;
     border: none;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     cursor: pointer;
 }
 
@@ -310,9 +311,9 @@ select {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 15px;
-    padding-right: 45px;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 36px;
 }
 
 /* Focus States */
@@ -361,8 +362,8 @@ select:hover {
 .top-button {
     display: flex;
     justify-content: flex-end;
-    margin: 20px;
-    gap: 10px;
+    margin: 16px;
+    gap: 8px;
 }
 
 /* Single Media Query for Mobile */
@@ -376,17 +377,109 @@ select:hover {
     input[type="file"],
     select,
     button {
-        width: calc(100% - 20px);
-        margin: 8px 10px;
+        width: calc(100% - 16px);
+        margin: 6px 8px;
     }
 
     .top-button {
         flex-direction: column;
-        margin: 15px;
+        margin: 12px;
     }
 }
 
+.input-group {
+    width: 80%;
+    max-width: 400px;
+    margin: 0 auto 15px;
+}
 
+/* File and Image Input Base Styles */
+.input-group input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+/* Label Styles for both file and image */
+.input-group input[type="file"] + label {
+    display: inline-block;
+    width: 100%;
+    padding: 8px 10px;
+    margin: 4px 0;
+    cursor: pointer;
+    background-color: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #4a5568;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+/* Icon and text for file upload */
+.input-group input[name="upload"] + label:before {
+    content: '📎 Choose PDF';
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* Icon and text for image upload */
+.input-group input[name="image"] + label:before {
+    content: '🖼️ Choose Image';
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.input-group input[type="file"] + label:hover {
+    border-color: var(--secondary-color);
+    background-color: #f0f7ff;
+}
+
+.input-group input[type="file"]:focus + label {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.input-group input[type="file"] + label:hover:before {
+    background: var(--secondary-color);
+}
+
+/* File name display */
+.input-group input[type="file"] + label span {
+    display: inline-block;
+    max-width: calc(100% - 150px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+    .input-group input[type="file"] + label {
+        width: calc(100% - 16px);
+        margin: 6px 8px;
+    }
+    
+    .input-group input[type="file"] + label span {
+        max-width: calc(100% - 100px);
+    }
+}
 input[name="logout"]:hover {
     background-color: #c82333; /* Darker red */
 }
@@ -396,12 +489,12 @@ input[name="addstudent"]:hover {
 }
 
 .container {
-    height: 200px;
-    max-width: 650px;
-    margin: 200px auto;
-    padding: 20px;
+    height: 160px;
+    max-width: 520px;
+    margin: 160px auto;
+    padding: 16px;
     background: white;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     h1{
         margin-bottom: 30px;
@@ -410,17 +503,17 @@ input[name="addstudent"]:hover {
 }
 
 .user-details {
-    margin: 20px 0;
+    margin: 16px 0;
 }
 
 .detail-row {
     display: flex;
-    padding: 10px 0;
+    padding: 8px 0;
     border-bottom: 1px solid #eee;
 }
 
 .label {
-    width: 150px;
+    width: 120px;
     font-weight: bold;
     color: var(--primary-color);
 }
@@ -431,5 +524,5 @@ input[name="addstudent"]:hover {
 
 .download-form {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 24px;
 }

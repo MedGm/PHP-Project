@@ -25,7 +25,7 @@
             <input type="text" name="email" placeholder="Email (For student)" >
             <button type="submit" name="submit">Submit</button>
         </div>
-        <footer style="text-align: center; position: absolute; bottom: 0; width: 100%; background-color: #ccc;"> © Made by EL GORRIM MOHAMED. LSI24/25 </footer>
+        <footer style="text-align: center; position: absolute; bottom: 0; width: 100%; background-color: #ccc;"> © Made by EL GORRIM MOHAMED. LSI24/25 <button type="submit" name="admincon">connecter comme admin</button> </footer>
 </body>
 </html>
 <?php
@@ -34,7 +34,9 @@
     use PHPMailer\PHPMailer\Exception;
 
     require 'vendor/autoload.php';
-
+    if(isset($_POST["admincon"])){
+        header("location:admin.php");
+}else{
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_POST["role"])){
             $role = $_POST["role"];
@@ -114,7 +116,10 @@
                             text-align: center;'>
                             Invalid email format. Please use a valid email address.</p>";
                 }
-            }
+            }else if($role == "admin"){
+                header("location:admin.php");
         }
     }
+}
+}
 ?>

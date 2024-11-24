@@ -96,15 +96,15 @@ if(isset($_POST["submit"])) {
         try {
             // Base des données d student en general
             $stmt = $dsn->prepare("INSERT INTO student (fullname, cin, cne, ddn, genre, telephone, 
-                      ldn, nationalite, annee, serie, Mention, email, filiere) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                      ldn, nationalite, annee, serie, Mention, email, filiere, selected_program) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             
             $stmt->execute([$fullname, $cin, $cne, $date, $genre, $phone,
-                          $address, $nationnalite, $annee, $serie, $mention, $email, $filiere]);
+                          $address, $nationnalite, $annee, $serie, $mention, $email, $filiere, 
+                          strtolower($finalChoice)]);
             
             $_SESSION['email'] = $email;
             if($finalChoice === "Master") {
-                
                 $_SESSION['success'] = "Application submitted successfully.";
                 header("Location: mst.php");
                 exit();

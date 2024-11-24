@@ -56,10 +56,34 @@
                     $sql = "SELECT * FROM student WHERE email = '$email'";
                     $result = $conn->query($sql);
                     
-                    //katverifier wach deja kayn f base de données
+                    //kanverifier wach email kayn f database
                     if ($result->num_rows > 0) {
-                        $_SESSION['email'] = $email;
-                        header("location:download.php" );
+                        //nchofoh wach f master
+                        $sql_master = "SELECT * FROM master WHERE email = '$email'";
+                        $result_master = $conn->query($sql_master);
+                        
+                        // wla f cycle
+                        $sql_cycle = "SELECT * FROM cycle WHERE email = '$email'";
+                        $result_cycle = $conn->query($sql_cycle);
+                        
+                        if ($result_master->num_rows > 0 || $result_cycle->num_rows > 0) {
+                            // lqinah fchi wehda fihom
+                            $_SESSION['email'] = $email;
+                            header("location:download.php");
+                        } else {
+                            // lqinah f student
+                            $student_data = $result->fetch_assoc();
+                            $selected_program = isset($student_data['selected_program']) ? $student_data['selected_program'] : '';
+                            
+                            if ($selected_program == 'master') {
+                                header("location:mst.php?email=" . urlencode($email));
+                            } else if ($selected_program == 'ci') {
+                                header("location:ci.php?email=" . urlencode($email));
+                            } else {
+                                // If no program is selected, redirect to student page
+                                header("location:student.php?email=" . urlencode($email));
+                            }
+                        }
                     } else { 
                         try {
                         $mail = new PHPMailer(true);

@@ -30,7 +30,7 @@ A web-based application management system for the Faculty of Sciences and Techno
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/fstt-application-system.git
+git clone https://github.com/yourusername/PHP-project.git
 ```
 # Install dependencies
 ```bash

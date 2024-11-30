@@ -119,10 +119,13 @@
         $classement = $_POST['mst'];
         try {
             $dsn->beginTransaction();
+            
+            // Remove dossier_number query and use direct insert
             $stmt = $dsn->prepare("INSERT INTO master (fullname, cin, cne, ddn, genre, telephone, 
-                  ldn, nationalite, annee, serie, Mention, email, filiere, moyen1, moyen2, classement, pdf_file, file_name,user_image) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)");
-    
+                ldn, nationalite, annee, serie, Mention, email, filiere, moyen1, moyen2, 
+                classement, pdf_file, file_name, user_image) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
             $stmt->execute([
                 $userData4['fullname'], 
                 $userData4['cin'], 
@@ -150,14 +153,15 @@
         header("Location: download.php");
         exit();
                 } catch(PDOException $e) {
-                $dsn->rollBack();
+                if ($dsn->inTransaction()) {
+                    $dsn->rollBack();
+                }
                 $uploadError = "Error saving to database: " . $e->getMessage();
                 }
             }
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>

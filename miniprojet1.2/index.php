@@ -20,24 +20,69 @@
         <div class="login-box">
             <h1>Select :</h1>
             <select name="role" id="role" style="pointer-events: none; cursor: default;">
-                <option value="student">Student</option>
+                    <option value="student">Student</option>
             </select>
             <input type="text" name="email" placeholder="Email (For student)" >
             <button type="submit" name="submit">Submit</button>
         </div>
-        <footer style="text-align: center; position: absolute; bottom: 0; width: 100%; background-color: #ccc;"> © Made by EL GORRIM MOHAMED. LSI24/25 <button type="submit" name="admincon">connecter comme admin</button> </footer>
+        <footer style="text-align: center; position: absolute; bottom: 0; width: 100%; background-color: #ccc;"> 
+            © Made by EL GORRIM MOHAMED. LSI24/25 
+            <button type="button" name="admincon" onclick="toggleAdminStudent()">connecter comme admin</button> 
+        </footer>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedView = localStorage.getItem('currentView');
+            if (savedView === 'admin') {
+                applyAdminView();
+            }
+        });
+
+        function applyAdminView() {
+            const role = document.getElementById('role');
+            const emailInput = document.querySelector('input[name="email"]');
+            const toggleButton = document.querySelector('button[name="admincon"]');
+            
+            role.innerHTML = '<option value="superadmin">Admin</option><option value="chef">Coordinateur</option>';
+            role.removeAttribute('style');
+            emailInput.style.display = 'none';
+            toggleButton.textContent = 'connecter comme etudiant';
+        }
+
+        function applyStudentView() {
+            const role = document.getElementById('role');
+            const emailInput = document.querySelector('input[name="email"]');
+            const toggleButton = document.querySelector('button[name="admincon"]');
+            
+            role.innerHTML = '<option value="student">Student</option>';
+            role.style.cssText = 'pointer-events: none; cursor: default;';
+            emailInput.style.display = 'block';
+            toggleButton.textContent = 'connecter comme admin';
+        }
+
+        function toggleAdminStudent() {
+            const role = document.getElementById('role');
+            
+            if (role.innerHTML.includes('Student')) {
+                applyAdminView();
+                localStorage.setItem('currentView', 'admin');
+            } else {
+                applyStudentView();
+                localStorage.setItem('currentView', 'student');
+            }
+        }
+    </script>
 </body>
 </html>
+
 <?php
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
     require 'vendor/autoload.php';
-    if(isset($_POST["admincon"])){
-        header("location:admin.php");
-}else{
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
         if(isset($_POST["role"])){
             $role = $_POST["role"];
             if($role == "student"){
@@ -68,21 +113,26 @@
                         
                         if ($result_master->num_rows > 0 || $result_cycle->num_rows > 0) {
                             // lqinah fchi wehda fihom
-                            $_SESSION['email'] = $email;
+                            session_start();
+                            $_SESSION['email'] = $email; // The email from login form
+                            $_SESSION['authenticated'] = true;
                             header("location:download.php");
                         } else {
                             // lqinah f student
                             $student_data = $result->fetch_assoc();
                             $selected_program = isset($student_data['selected_program']) ? $student_data['selected_program'] : '';
                             
+                            session_start();
+                            $_SESSION['email'] = $email;
+                            
                             if ($selected_program == 'master') {
-                                header("location:mst.php?email=" . urlencode($email));
+                                header("location:mst.php");
                             } else if ($selected_program == 'ci') {
-                                header("location:ci.php?email=" . urlencode($email));
+                                header("location:ci.php");
                             } else {
-                                // If no program is selected, redirect to student page
-                                header("location:student.php?email=" . urlencode($email));
+                                header("location:student.php?=". urlencode($email));
                             }
+                            exit();
                         }
                     } else { 
                         try {
@@ -131,7 +181,11 @@
                     }
                     $conn->close();
                 } else if(empty($email)){
-                    header("location:student.php");
+                    echo "<p style='color: black; 
+                            font-weight: bold; 
+                            font-size: 1em; 
+                            text-align: center;'>
+                            Please Enter a valid email address.</p>";
                 }
                 else {
                     echo "<p style='color: black; 
@@ -140,10 +194,10 @@
                             text-align: center;'>
                             Invalid email format. Please use a valid email address.</p>";
                 }
-            }else if($role == "admin"){
-                header("location:admin.php");
+            } else if($role == "superadmin" || $role == "chef"){
+                header("location:admin.php?role=" . urlencode($role));
+                exit();
+            }
         }
     }
-}
-}
 ?>

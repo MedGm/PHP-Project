@@ -122,7 +122,7 @@ if(isset($_POST["submit"])) {
 }
 if(isset($_POST["delete"])) {
     try {
-        $stmt = $dsn->prepare("DELETE FROM student WHERE email = ?");
+        $stmt = $dsn->prepare("DELETE FROM student AND (cycle OR master) WHERE email = ?");
         $stmt->execute([$emailFromUrl]);
         
         if($stmt->rowCount() > 0) {

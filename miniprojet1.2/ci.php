@@ -69,6 +69,7 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
     } else {
         throw new Exception("Please complete registration first");
     }
+
     if(isset($_POST["submit"])){
         if(!isset($_FILES['image']) || $_FILES['image']['error'] === UPLOAD_ERR_NO_FILE) {
             $uploadError = "Please upload your photo";
@@ -120,10 +121,12 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
                     $classement = $_POST['ci'];
                 try {
                     $dsn->beginTransaction();
-                    $stmt2 = $dsn->prepare("INSERT INTO cycle (fullname, cin, cne, ddn, genre, telephone, 
-                        ldn, nationalite, annee, serie, Mention, email, filiere, moyen1, classement, pdf_file, file_name,user_image) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
                     
+                    $stmt2 = $dsn->prepare("INSERT INTO cycle (fullname, cin, cne, ddn, genre, telephone, 
+                        ldn, nationalite, annee, serie, Mention, email, filiere, moyen1, classement, 
+                        pdf_file, file_name, user_image) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    
                     $stmt2->execute([
                         $userData['fullname'], 
                         $userData['cin'], 
@@ -151,7 +154,9 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
                     header("Location: download.php");
                     exit();
                 } catch(PDOException $e) {
-                    $dsn->rollBack();
+                    if ($dsn->inTransaction()) {
+                        $dsn->rollBack();
+                    }
                     $uploadError = "Error saving to database: " . $e->getMessage();
                 }
             }

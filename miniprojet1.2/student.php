@@ -2,6 +2,10 @@
 session_start();
 ob_start(); // maerft dyalash hadi chatgpt gali nzidha
 include 'db_connection.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
 
 if (!isset($_GET['email']) || empty($_GET['email'])) {
     die('Please enter from the link you have in your email.');
@@ -122,7 +126,11 @@ if(isset($_POST["submit"])) {
 }
 if(isset($_POST["delete"])) {
     try {
-        $stmt = $dsn->prepare("DELETE FROM student AND (cycle OR master) WHERE email = ?");
+        $stmt = $dsn->prepare("DELETE FROM cycle WHERE email = ?");
+        $stmt->execute([$emailFromUrl]);
+        $stmt = $dsn->prepare("DELETE FROM master WHERE email = ?");
+        $stmt->execute([$emailFromUrl]);
+        $stmt = $dsn->prepare("DELETE FROM student WHERE email = ?");
         $stmt->execute([$emailFromUrl]);
         
         if($stmt->rowCount() > 0) {
@@ -131,6 +139,21 @@ if(isset($_POST["delete"])) {
                     alert('Application removed successfully');
                     window.location.href = 'index.php';
                   </script>";
+
+                  $mail = prepareMailer();
+                  $mail->addAddress($emailFromUrl, $fullnameFromUrl);
+                  $mail->Subject = "Suppression de Candidature";
+                  $mail->Body = "
+                  <div style='font-family: Arial, sans-serif; text-align: center;'>
+                      <img src='https://fstt.ac.ma/Portail2023/wp-content/uploads/2023/03/Untitled-3-300x300.png' alt='FSTT Logo' style='width: 100px; height: 100px;'>
+                      <h2>Candidature Supprimée avec Succès</h2>
+                      <p style='font-size: 1.2em;'>Cher(e) Candidat(e),</p>
+                      <p style='font-size: 1.1em;'>Votre candidature à l'UAE a été supprimée avec succès de notre système.</p>
+                      <p style='font-size: 1.1em;'>Si vous souhaitez postuler à nouveau dans le futur, vous devrez recommencer un nouveau processus de candidature.</p>
+                      <p style='font-size: 0.9em; color: #666; margin-top: 20px;'>Cordialement,<br>Administration UAE</p>
+                  </div>";
+                  $mail->send();
+            
             exit();
         } else {
             echo "<script>alert('No application found to remove');</script>";
@@ -163,9 +186,7 @@ if(isset($_POST["delete"])) {
 <form action="" method="post">
     <div class="addstudent">
         <h1>Student Registration</h1>
-        
         <div class="form-sections">
-            <!-- Personal Information -->
             <div class="section">
                 <div class="section-title">Personal Information</div>
                 <div class="input-group">
@@ -193,8 +214,6 @@ if(isset($_POST["delete"])) {
                     </select>
                 </div>
             </div>
-
-            <!-- Contact Information -->
             <div class="section">
                 <div class="section-title">Contact Information</div>
                 <div class="input-group">
@@ -224,8 +243,6 @@ if(isset($_POST["delete"])) {
                     </select>
                 </div>
             </div>
-
-            <!-- Academic Information -->
             <div class="section">
                 <div class="section-title">Academic Information</div>
                 <div class="input-group">

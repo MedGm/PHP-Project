@@ -18,12 +18,16 @@
 </ul>
     <form action="" method="post">
         <div class="login-box">
-            <h1>Select :</h1>
-            <select name="role" id="role" style="pointer-events: none; cursor: default;">
+            <h1>Login</h1>
+            <div class="form">
+                <select name="role" id="role" style="pointer-events: none; cursor: default;">
                     <option value="student">Student</option>
-            </select>
-            <input type="text" name="email" placeholder="Email (For student)" >
-            <button type="submit" name="submit">Submit</button>
+                </select>
+                <input type="text" name="email" placeholder="Email (For student)" >
+                <div class="button-container">
+                    <button type="submit" name="submit">Submit</button>
+                </div>
+            </div>
         </div>
         <footer style="text-align: center; position: absolute; bottom: 0; width: 100%; background-color: #ccc;"> 
             © Made by EL GORRIM MOHAMED. LSI24/25 
@@ -200,8 +204,4 @@
             }
         }
     }
-<<<<<<< HEAD
 ?>
-=======
-?>
->>>>>>> f0baf89d6ba9b3447a6bd9685954b294eccbacfa

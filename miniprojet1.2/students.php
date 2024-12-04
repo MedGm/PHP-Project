@@ -11,13 +11,22 @@ if (!isAuthenticated()) {
 
 $pageTitle = isCoordinator() ? "Programme {$_SESSION['program']}" : "All Programs";
 
-// Handle student deletion
+
+include'emailconfig.php';
+// ms7 l'etudiant
 if (isset($_POST['delete_student']) && isset($_POST['table'])) {
     try {
         $pdo = Database::getInstance();
         $id = filter_input(INPUT_POST, 'student_id', FILTER_SANITIZE_NUMBER_INT);
         $table = $_POST['table'] === 'master' ? 'master' : 'cycle';
+        $email = filter_input(INPUT_POST, 'student_email', FILTER_SANITIZE_EMAIL);
+        $fullname = filter_input(INPUT_POST, 'student_name', FILTER_SANITIZE_STRING);
         
+        if (!$email || !$fullname) {
+            throw new Exception('Invalid email or fullname');
+        }
+        
+        // Delete the student first
         $sql = "DELETE FROM $table WHERE id = ?";
         $params = [$id];
         
@@ -29,19 +38,39 @@ if (isset($_POST['delete_student']) && isset($_POST['table'])) {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
         
+        // sard email
+        $mail = prepareMailer();
+        $mail->addAddress($email, $fullname);
+        $mail->Subject = "Suppression de Candidature";
+        $mail->Body = "
+        <div style='font-family: Arial, sans-serif; text-align: center;'>
+            <img src='https://fstt.ac.ma/Portail2023/wp-content/uploads/2023/03/Untitled-3-300x300.png' alt='FSTT Logo' style='width: 100px; height: 100px;'>
+            <h2>Candidature Supprimée avec Succès</h2>
+            <p style='font-size: 1.2em;'>Cher(e) Candidat(e),</p>
+            <p style='font-size: 1.1em;'>Votre candidature à l'UAE a été supprimée avec succès de notre système.</p>
+            <p style='font-size: 1.1em;'>Si vous souhaitez postuler à nouveau dans le futur, vous devrez recommencer un nouveau processus de candidature.</p>
+            <p style='font-size: 0.9em; color: #666; margin-top: 20px;'>Cordialement,<br>Administration UAE</p>
+        </div>";
+        $mail->send();
+        
         $_SESSION['message'] = 'Student deleted successfully';
+        
         header('Location: students.php');
         exit;
     } catch (PDOException $e) {
         $_SESSION['error'] = 'Error deleting student: ' . $e->getMessage();
+    } catch (Exception $e) {
+        $_SESSION['error'] = 'Error deleting student: ' . $e->getMessage();
     }
 }
 
-// Handle incomplete registration deletion
+// ms7 li maklmosh inscription
 if (isset($_POST['delete_incomplete'])) {
     try {
         $pdo = Database::getInstance();
         $id = filter_input(INPUT_POST, 'student_id', FILTER_SANITIZE_NUMBER_INT);
+        $email = filter_input(INPUT_POST, 'student_email', FILTER_SANITIZE_EMAIL);
+        $fullname = filter_input(INPUT_POST, 'student_name', FILTER_SANITIZE_STRING);
         
         $sql = "DELETE FROM student WHERE id = ?";
         $params = [$id];
@@ -55,6 +84,21 @@ if (isset($_POST['delete_incomplete'])) {
         $stmt->execute($params);
         
         $_SESSION['message'] = 'Incomplete registration deleted successfully';
+        
+        $mail = prepareMailer();
+        $mail->addAddress($email, $fullname);
+        $mail->Subject = "Suppression de Candidature";
+        $mail->Body = "
+        <div style='font-family: Arial, sans-serif; text-align: center;'>
+            <img src='https://fstt.ac.ma/Portail2023/wp-content/uploads/2023/03/Untitled-3-300x300.png' alt='FSTT Logo' style='width: 100px; height: 100px;'>
+            <h2>Candidature Supprimée avec Succès</h2>
+            <p style='font-size: 1.2em;'>Cher(e) Candidat(e),</p>
+            <p style='font-size: 1.1em;'>Votre candidature à l'UAE a été supprimée avec succès de notre système.</p>
+            <p style='font-size: 1.1em;'>Si vous souhaitez postuler à nouveau dans le futur, vous devrez recommencer un nouveau processus de candidature.</p>
+            <p style='font-size: 0.9em; color: #666; margin-top: 20px;'>Cordialement,<br>Administration UAE</p>
+        </div>";
+        $mail->send();
+
         header('Location: students.php');
         exit;
     } catch (PDOException $e) {
@@ -62,10 +106,6 @@ if (isset($_POST['delete_incomplete'])) {
     }
 }
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-require 'vendor/autoload.php';
 
 if (isset($_POST['send_warning'])) {
     try {
@@ -74,22 +114,8 @@ if (isset($_POST['send_warning'])) {
         $email = filter_input(INPUT_POST, 'student_email', FILTER_SANITIZE_EMAIL);
         $fullname = filter_input(INPUT_POST, 'student_name', FILTER_SANITIZE_STRING);
         
-        $mail = new PHPMailer(true);
-
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'confirmationfsttinscri@gmail.com';
-        $mail->Password = 'wwsz xtux pumu jkcm';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-
-
-        $mail->setFrom('confirmationfsttinscri@gmail.com', 'UAE Administration');
+        $mail = prepareMailer();
         $mail->addAddress($email, $fullname);
-
-        // Contenut dyal email
-        $mail->isHTML(true);
         $mail->Subject = "Warning: Incomplete Registration";
         $mail->Body = "
         <div style='font-family: Arial, sans-serif; text-align: center;'>
@@ -219,6 +245,7 @@ $programTitle = isCoordinator() ? $_SESSION['program'] : "All Programs";
 <head>
     <meta charset="UTF-8">
     <title>Students - <?php echo htmlspecialchars($programTitle); ?></title>
+    <link rel="icon" href="https://fstt.ac.ma/Portail2023/wp-content/uploads/2023/03/Untitled-3-300x300.png" sizes="192x192">
     <link rel="stylesheet" href="style2.css">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -433,28 +460,30 @@ $programTitle = isCoordinator() ? $_SESSION['program'] : "All Programs";
                 </thead>
                 <tbody>
                     <?php foreach ($students as $student): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($student['fullname']); ?></td>
-                        <td><?php echo htmlspecialchars($student['cin']); ?></td>
-                        <td><?php echo htmlspecialchars($student['cne']); ?></td>
-                        <td><?php echo htmlspecialchars($student['email']); ?></td>
-                        <td><?php echo number_format($student['average'], 2); ?></td>
-                        <?php if (!isCoordinator()): ?>
-                        <td><?php echo htmlspecialchars($student['classement']); ?></td>
-                        <?php endif; ?>
-                        <td>
-                            <?php if ($student['pdf_file']): ?>
-                                <a href="?pdf=1&id=<?php echo $student['id']; ?>&table=<?php echo $student['source']; ?>" 
-                                class="btn btn-view" target="_blank">View PDF</a>
+                        <tr>
+                            <td><?php echo htmlspecialchars($student['fullname']); ?></td>
+                            <td><?php echo htmlspecialchars($student['cin']); ?></td>
+                            <td><?php echo htmlspecialchars($student['cne']); ?></td>
+                            <td><?php echo htmlspecialchars($student['email']); ?></td>
+                            <td><?php echo number_format($student['average'], 2); ?></td>
+                            <?php if (!isCoordinator()): ?>
+                            <td><?php echo htmlspecialchars($student['classement']); ?></td>
                             <?php endif; ?>
-                            <form method="post" style="display: inline;" 
-                                onsubmit="return confirm('Are you sure you want to delete this student?');">
-                                <input type="hidden" name="student_id" value="<?php echo $student['id']; ?>">
-                                <input type="hidden" name="table" value="<?php echo $student['source']; ?>">
-                                <button type="submit" name="delete_student" class="btn btn-delete">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
+                            <td>
+                                <?php if ($student['pdf_file']): ?>
+                                    <a href="?pdf=1&id=<?php echo $student['id']; ?>&table=<?php echo $student['source']; ?>" 
+                                    class="btn btn-view" target="_blank">View PDF</a>
+                                <?php endif; ?>
+                                <form method="post" style="display: inline;" 
+                                    onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                    <input type="hidden" name="student_id" value="<?php echo $student['id']; ?>">
+                                    <input type="hidden" name="table" value="<?php echo $student['source']; ?>">
+                                    <input type="hidden" name="student_email" value="<?php echo $student['email']; ?>">
+                                    <input type="hidden" name="student_name" value="<?php echo $student['fullname']; ?>">
+                                    <button type="submit" name="delete_student" class="btn btn-delete">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -576,4 +605,5 @@ $programTitle = isCoordinator() ? $_SESSION['program'] : "All Programs";
     </style>
     <?php include 'includes/footer.php'; ?>
 </body>
-</html> 
+</html>
+

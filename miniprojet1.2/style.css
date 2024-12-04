@@ -56,22 +56,65 @@ ul.logos {
     top: 20px;
 }
 
+/* Modified Login Box Styles */
 .login-box {
     background: white;
     padding: 24px;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 10px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    max-width: 320px;
-    margin: 40px auto;
+    max-width: 400px;
+    margin: 120px auto; /* Changed from 40px to 120px */
     animation: fadeIn 0.8s ease;
+    border-left: 4px solid var(--primary-color);
 }
 
-.login-box h1 {
+.login-box h1,
+.login-box h2 {
     color: var(--primary-color);
     margin-bottom: 24px;
     text-align: center;
     font-size: 1.6em;
 }
+
+.login-box input[type="text"],
+.login-box input[type="email"],
+.login-box input[type="password"],
+.login-box select {
+    width: calc(100% - 24px);
+    padding: 10px;
+    margin: 8px auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    background-color: #f8fafc;
+}
+
+.login-box .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.login-box button {
+    padding: 8px 20px;
+    background: var(--primary-color);
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
 button {
     display: inline-block;
     padding: 6px 14px;
@@ -97,8 +140,6 @@ button {
 button:hover {
     transform: translateY(-2px);
 }
-
-
 
 input[type="text"] {
     display: block;
@@ -137,7 +178,6 @@ select:hover {
     color: white;
 }
 
-
 .error {
     color: #c53030;
     background: #fff5f5;
@@ -163,6 +203,7 @@ footer {
     font-size: 11px;
     animation: slideUp 0.5s ease;
 }
+
 /* Form Layout */
 .form-sections {
     display: grid;
@@ -279,6 +320,7 @@ footer {
         margin: 1rem;
     }
 }
+
 /* Base Input Styles */
 input[type="text"],
 input[type="email"],
@@ -314,6 +356,17 @@ input[type="file"] {
     text-transform: uppercase;
     letter-spacing: 0.8px;
     cursor: pointer;
+}
+
+.login-box button[type="submit"] {
+    min-width: 120px;
+    background: var(--primary-color);
+    padding: 12px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
 }
 
 /* Select Specific Styles */
@@ -490,6 +543,7 @@ select:hover {
         max-width: calc(100% - 100px);
     }
 }
+
 input[name="logout"]:hover {
     background-color: #c82333; /* Darker red */
 }
@@ -539,19 +593,22 @@ input[name="addstudent"]:hover {
 
 .role-select {
     margin-top: 20px;
-    text-align: center;
 }
 
 .role-select a {
     display: block;
     margin: 10px 0;
     padding: 10px;
-    background: #003366;
+    background: var(--primary-color);
     color: white;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
 .role-select a:hover {
-    background: #004080;
+    background: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
 }

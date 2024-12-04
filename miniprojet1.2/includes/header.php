@@ -21,6 +21,7 @@ function getCurrentPageTitle() {
     <title><?php echo getCurrentPageTitle(); ?> - UAE</title>
     <link rel="stylesheet" href="style2.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://fstt.ac.ma/Portail2023/wp-content/uploads/2023/03/Untitled-3-300x300.png" sizes="192x192">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>

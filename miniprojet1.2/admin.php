@@ -86,38 +86,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     <title>Admin Login</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://fstt.ac.ma/Portail2023/wp-content/uploads/2023/03/Untitled-3-300x300.png" sizes="192x192">
+    <style> body{ overflow: hidden;} </style>
 </head>
 <body>
     <div class="login-box">
         <h2><?php echo $role === 'superadmin' ? 'Administration Login' : 'Coordinateur Login'; ?></h2>
-        <form method="POST" action="admin.php?role=<?php echo htmlspecialchars($role); ?>">
-            <?php if ($role === 'chef'): ?>
-            <select name="program" required>
-                <option value="">Selectionner</option>
-                <optgroup label="Cycle Ingenieur">
-                    <option value="LSI">Logiciels et systèmes Intelligens</option>
-                    <option value="GI">Genie industriel</option>
-                    <option value="GEO">Geoinformation</option>
-                    <option value="GEMI">Genie Electrique et Management Industriel</option>
-                    <option value="GA">Genie Agroalimentaire</option>
-                </optgroup>
-                <optgroup label="Master">
-                    <option value="SE">Sciences d'Environnement</option>
-                    <option value="AISD">Intelligence Artificielle et Sciences de Données</option>
-                    <option value="ITBD">IT et Big Data</option>
-                    <option value="GC">Genie Civil</option>
-                    <option value="GE">Genie Energitique</option>
-                    <option value="MMSD">Modélisation Mathématique et Science de Données</option>
-                </optgroup>
-            </select>
-            <?php endif; ?>
-            <input type="email" name="username" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" name="login">Login</button>
-            <?php if($error): ?>
-                <p class="error"><?php echo htmlspecialchars($error); ?></p>
-            <?php endif; ?>
-        </form>
+        <div class="form">
+            <form method="POST" action="admin.php?role=<?php echo htmlspecialchars($role); ?>">
+                <?php if ($role === 'chef'): ?>
+                <select name="program" required>
+                    <option value="">Selectionner</option>
+                    <optgroup label="Cycle Ingenieur">
+                        <option value="LSI">Logiciels et systèmes Intelligens</option>
+                        <option value="GI">Genie industriel</option>
+                        <option value="GEO">Geoinformation</option>
+                        <option value="GEMI">Genie Electrique et Management Industriel</option>
+                        <option value="GA">Genie Agroalimentaire</option>
+                    </optgroup>
+                    <optgroup label="Master">
+                        <option value="SE">Sciences d'Environnement</option>
+                        <option value="AISD">Intelligence Artificielle et Sciences de Données</option>
+                        <option value="ITBD">IT et Big Data</option>
+                        <option value="GC">Genie Civil</option>
+                        <option value="GE">Genie Energitique</option>
+                        <option value="MMSD">Modélisation Mathématique et Science de Données</option>
+                    </optgroup>
+                </select>
+                <?php endif; ?>
+                <input type="email" name="username" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <div class="button-container">
+                    <button type="submit" name="login">Login</button>
+                    <button type="button" onclick="window.location.href='index.php'">Back</button>
+                </div>
+                <?php if($error): ?>
+                    <p class="error"><?php echo htmlspecialchars($error); ?></p>
+                <?php endif; ?>
+            </form>
+        </div>
         <?php if(!$role): ?>
             <div class="role-select">
                 <a href="admin.php?role=superadmin">Super Admin Login</a>

@@ -72,6 +72,11 @@ if (isset($_POST['delete_incomplete'])) {
         $email = filter_input(INPUT_POST, 'student_email', FILTER_SANITIZE_EMAIL);
         $fullname = filter_input(INPUT_POST, 'student_name', FILTER_SANITIZE_STRING);
         
+        // Validate email and fullname before proceeding
+        if (!$email || !$fullname) {
+            throw new Exception('Invalid email or fullname');
+        }
+
         $sql = "DELETE FROM student WHERE id = ?";
         $params = [$id];
         
@@ -85,6 +90,7 @@ if (isset($_POST['delete_incomplete'])) {
         
         $_SESSION['message'] = 'Incomplete registration deleted successfully';
         
+        // Send email notification
         $mail = prepareMailer();
         $mail->addAddress($email, $fullname);
         $mail->Subject = "Suppression de Candidature";
@@ -101,8 +107,10 @@ if (isset($_POST['delete_incomplete'])) {
 
         header('Location: students.php');
         exit;
-    } catch (PDOException $e) {
-        $_SESSION['error'] = 'Error deleting student: ' . $e->getMessage();
+    } catch (Exception $e) {
+        $_SESSION['error'] = 'Error: ' . $e->getMessage();
+        header('Location: students.php');
+        exit;
     }
 }
 
@@ -518,6 +526,8 @@ $programTitle = isCoordinator() ? $_SESSION['program'] : "All Programs";
                             <form method="post" style="display: inline;" 
                                 onsubmit="return confirm('Are you sure you want to delete this incomplete registration?');">
                                 <input type="hidden" name="student_id" value="<?php echo $student['id']; ?>">
+                                <input type="hidden" name="student_email" value="<?php echo $student['email']; ?>">
+                                <input type="hidden" name="student_name" value="<?php echo $student['fullname']; ?>">
                                 <button type="submit" name="delete_incomplete" class="btn btn-delete">Delete</button>
                             </form>
                             <form method="post" style="display: inline;">

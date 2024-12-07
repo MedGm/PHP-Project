@@ -185,7 +185,7 @@
     </ul>
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-section" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-        <div class="section" style="text-align: center; width: 400px; height: auto;">
+        <div class="section" style="text-align: center; width: 400px; height: 352px; margin-right: 25px;">
             <h2>Master Registration Form</h2>
             <p>Full Name: <?php echo $userData4['fullname']; ?></p>
             <input type="number" name="note1" step="0.01" placeholder="Moyen de 2 Année preparatoire" min="10.00" max="19.99" required>
@@ -207,6 +207,8 @@
                 <option value="GE" hidden>Genie Energitique</option>
                 <option value="MMSD" hidden>Modélisation Mathématique et Science de Données</option>
             </select>
+        </div>
+        <div class="section" style="text-align: center; width: 400px; height: auto; margin-left: 25px;">
             <div class="input-group">
             <p>Ajouter votre photo (JPG/PNG) :</p>
             <p><B>la taille ne depasse pas 1MB</B></p>
@@ -222,6 +224,7 @@
         <input type="submit" name="submit" value="Finish">
         <p style="color: red;"><?php echo $uploadError; ?></p>
     </div>
+</div>
 </form>
 </body>
 </html>
@@ -279,6 +282,17 @@
 
         mstSelect.selectedIndex = 0;
         
+    });
+});
+document.querySelectorAll('input[type="file"]').forEach(input => {
+    input.addEventListener('change', function(e) {
+        const parent = this.closest('.input-group');
+        if (this.files.length > 0) {
+            parent.classList.add('file-selected');
+            parent.classList.remove('error');
+        } else {
+            parent.classList.remove('file-selected');
+        }
     });
 });
 </script>

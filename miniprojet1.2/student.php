@@ -59,6 +59,15 @@ if(isset($_POST["submit"])) {
     if(!preg_match("/^[0-9]{10}$/", $phone)) {
         $errors[] = "Invalid phone number format.";
     }
+
+    if(!preg_match("/^[A-Z]{1,2}[0-9]{6}$/i", $cin)) {
+        $errors[] = "Invalid CIN format. Example format: AB123456";
+    }
+
+    if(!preg_match("/^[A-Z][0-9]{9}$/i", $cne)) {
+        $errors[] = "Invalid CNE format. Should be 1 letter followed by 9 numbers";
+    }
+
     $checkDuplicate = $dsn->prepare("SELECT email,cin,cne FROM student WHERE email = :email OR cin = :cin OR cne = :cne");
         $checkDuplicate->execute([
             ':email' => $email,
@@ -184,6 +193,23 @@ if(isset($_POST["delete"])) {
     </li>
 </ul>
 <form action="" method="post">
+    <?php if (!empty($errors)): ?>
+        <div class="error-messages" style="
+            background-color: #ffe6e6; 
+            color: #dc3545; 
+            padding: 10px; 
+            margin: 10px auto; 
+            border: 1px solid #dc3545; 
+            border-radius: 4px;
+            width: max-content;
+            min-width: 200px;
+            max-width: 800px;
+            text-align: center;">
+            <?php foreach($errors as $error): ?>
+                <p style="margin: 5px 0;"><?php echo htmlspecialchars($error); ?></p>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
     <div class="addstudent">
         <h1>Student Registration</h1>
         <div class="form-sections">
@@ -191,26 +217,26 @@ if(isset($_POST["delete"])) {
                 <div class="section-title">Personal Information</div>
                 <div class="input-group">
                     <label for="fullname">Full Name</label>
-                    <input type="text" name="fullname" id="fullname">
+                    <input type="text" name="fullname" id="fullname" value="<?php echo isset($_POST['fullname']) ? htmlspecialchars($_POST['fullname']) : ''; ?>">
                 </div>
                 <div class="input-group">
                     <label for="cin">CIN</label>
-                    <input type="text" name="cin" id="cin">
+                    <input type="text" name="cin" id="cin" value="<?php echo isset($_POST['cin']) ? htmlspecialchars($_POST['cin']) : ''; ?>">
                 </div>
                 <div class="input-group">
                     <label for="cne">CNE</label>
-                    <input type="text" name="cne" id="cne">
+                    <input type="text" name="cne" id="cne" value="<?php echo isset($_POST['cne']) ? htmlspecialchars($_POST['cne']) : ''; ?>">
                 </div>
                 <div class="input-group">
                     <label for="date">Date of Birth (mois/jour/annee)</label>
-                    <input type="date" name="date" id="date">
+                    <input type="date" name="date" id="date" value="<?php echo isset($_POST['date']) ? htmlspecialchars($_POST['date']) : ''; ?>">
                 </div>
                 <div class="input-group">
                     <label for="genre">Gender</label>
                     <select name="genre" id="genre">
                         <option value="">Select Gender</option>
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
+                        <option value="M" <?php echo (isset($_POST['genre']) && $_POST['genre'] === 'M') ? 'selected' : ''; ?>>Male</option>
+                        <option value="F" <?php echo (isset($_POST['genre']) && $_POST['genre'] === 'F') ? 'selected' : ''; ?>>Female</option>
                     </select>
                 </div>
             </div>
@@ -222,24 +248,33 @@ if(isset($_POST["delete"])) {
                 </div>
                 <div class="input-group">
                     <label for="phone">Phone</label>
-                    <input type="tel" name="phone" id="phone">
+                    <input type="tel" name="phone" id="phone" value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>">
                 </div>
                 <div class="input-group">
                     <label for="address">Address</label>
-                    <input type="text" name="address" id="address">
+                    <input type="text" name="address" id="address" value="<?php echo isset($_POST['address']) ? htmlspecialchars($_POST['address']) : ''; ?>">
                 </div>
                 <div class="input-group">
                     <label for="nationalite">Nationality</label>
                     <select size="1" name="nationnalite" id="nationnalite">
-                        <option value="350">MAROCAINE</option>
-                        <option value="352">ALGERIENNE</option>
-                        <option value="109">ALLEMANDE</option>
-                        <option value="404">AMERICAINE</option>
-                        <option value="415">SPAIN</option>
-                        <option value="417">FRANCE</option>
-                        <option value="428">ITALIENNE</option>
-                        <option value="430">TUNISIENNE</option>
-                        <option value="990">AUTRE</option>
+                        <?php
+                        $nationalities = [
+                            '350' => 'MAROCAINE',
+                            '352' => 'ALGERIENNE',
+                            '109' => 'ALLEMANDE',
+                            '404' => 'AMERICAINE',
+                            '415' => 'SPAIN',
+                            '417' => 'FRANCE',
+                            '428' => 'ITALIENNE',
+                            '430' => 'TUNISIENNE',
+                            '990' => 'AUTRE'
+                        ];
+                        foreach($nationalities as $value => $name) {
+                            echo '<option value="' . $value . '"' . 
+                                 (isset($_POST['nationnalite']) && $_POST['nationnalite'] == $value ? ' selected' : '') . 
+                                 '>' . $name . '</option>';
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -259,14 +294,23 @@ if(isset($_POST["delete"])) {
                     <label for="serie">Series</label>
                     <select size="1" name="seriebac" id="seriebac">
                         <option value="">Sélectionnez</option>
-                        <option value="SMA">Sciences Mathematiques A</option>
-                        <option value="SMB">Sciences Mathematiques B</option>
-                        <option value="PC">Sciences Physiques</option>
-                        <option value="SVT">Sciences Vie et Terre</option>
-                        <option value="STE">Sciences et technologies Electriques</option>
-                        <option value="STM">Sciences et technologies Mécaniques</option>
-                        <option value="AUTRE">Autre</option>
-	                </select>
+                        <?php
+                        $series = [
+                            'SMA' => 'Sciences Mathematiques A',
+                            'SMB' => 'Sciences Mathematiques B',
+                            'PC' => 'Sciences Physiques',
+                            'SVT' => 'Sciences Vie et Terre',
+                            'STE' => 'Sciences et technologies Electriques',
+                            'STM' => 'Sciences et technologies Mécaniques',
+                            'AUTRE' => 'Autre'
+                        ];
+                        foreach($series as $value => $name) {
+                            echo '<option value="' . $value . '"' . 
+                                 (isset($_POST['seriebac']) && $_POST['seriebac'] === $value ? ' selected' : '') . 
+                                 '>' . $name . '</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="input-group">
                     <label for="mention">Mention</label>

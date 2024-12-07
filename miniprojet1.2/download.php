@@ -2,15 +2,13 @@
 session_start();
 require_once 'db_connection.php';
 
-// Initialize variables
 $error = null;
 $userDataci = null;
 $userDatamst = null;
 
 try {
-    // Check if email exists in session
+
     if(!isset($_SESSION['email']) || empty($_SESSION['email'])) {
-        // Try to get email from POST if it was just submitted
         if(isset($_POST['email']) && !empty($_POST['email'])) {
             $_SESSION['email'] = $_POST['email'];
         } else {
@@ -20,7 +18,6 @@ try {
 
     $email = $_SESSION['email'];
     
-    // Check if email exists in either table
     $sql1 = "SELECT * FROM cycle WHERE email = :email";
     $stmtci = $dsn->prepare($sql1);
     $stmtci->bindParam(':email', $email);
@@ -34,7 +31,6 @@ try {
     $userDatamst = $stmtm->fetch(PDO::FETCH_ASSOC);
 
     if(!$userDataci && !$userDatamst) {
-        // Also check the student table
         $sql3 = "SELECT * FROM student WHERE email = :email";
         $stmt3 = $dsn->prepare($sql3);
         $stmt3->bindParam(':email', $email);
@@ -73,7 +69,7 @@ try {
                 // creer wahd temporary file
                 $tempFile = tempnam(sys_get_temp_dir(), 'img') . $extension;
                 file_put_contents($tempFile, $imageData);
-                
+
         // dimension dyal image
         $maxWidth = 30;
         $maxHeight = 40;
@@ -81,10 +77,8 @@ try {
         $width = $imageInfo[0] * $ratio;
         $height = $imageInfo[1] * $ratio;
 
-        // Ajouter image n PDF - updated Y position from 60 to 80
         $pdf->Image($tempFile, 160, 80, $width, $height, $imageType);
-        
-        // Cleanup
+
         unlink($tempFile);
         
         return true;
@@ -115,7 +109,7 @@ return false;
             $pdf->Cell(0, 10, "Fiche de candidature au Cycle d'Ingenieur", 0, 1, 'C');
             $pdf->SetFont('Arial', 'B', 13);
             $pdf->Cell(0, 10, "Numero de dossier : " . $userDataci['id'], 0, 1, 'C');
-            $pdf->Ln(10);// Add extra space before image
+            $pdf->Ln(10);
 
             if (displayImageInPDF($pdf, $userDataci['user_image'])) {
                 $pdf->Ln(5);

@@ -10,16 +10,16 @@
 
     $uploadError = null;
 function updateExcelFiles($studentData,$choix, $program, $moyen1) {
-    // Create concour directory if it doesn't exist
+    // kadir directory bach it7to les fichier
     $dir = 'concour';
     if (!file_exists($dir)) {
         mkdir($dir, 0777, true);
     }
 
-    // Determine which file to update based on program
+    // katsmi excel ela hsab filiere
     $filename = $dir . '/' . strtolower($program) . '_ci_students.xlsx';
 
-    // Load existing file or create new spreadsheet
+    // tqaleb ela excel qdim wla t creer wahed jdid
     if (file_exists(filename: $filename)) {
         $spreadsheet = IOFactory::load($filename);
         $sheet = $spreadsheet->getActiveSheet();
@@ -27,13 +27,13 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
     } else {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        // Add headers
+
         $headers = ['Full Name', 'CIN', 'CNE', 'Email', 'Phone','Filiere', 'Choix', 'Note DEUST/DEUG/DUT'];
         $sheet->fromArray([$headers], NULL, 'A1');
         $row = 2;
     }
 
-    // Add new student data
+    // data dyal student
     $data = [
         $studentData['fullname'],
         $studentData['cin'],
@@ -47,7 +47,7 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
     
     $sheet->fromArray([$data], NULL, 'A' . $row);
 
-    // Save the file
+    // sejel fichiers
     $writer = new Xlsx($spreadsheet);
     $writer->save($filename);
 }
@@ -174,7 +174,6 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
     <link rel="icon" href="https://fstt.ac.ma/Portail2023/wp-content/uploads/2023/03/Untitled-3-300x300.png" sizes="192x192">
     <title>Inscription au CD en FSTT</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
     <ul class="logos">
@@ -187,7 +186,7 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
     </ul>
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-section" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-        <div class="section" style="text-align: center; width: 400px; height: auto;">
+        <div class="section" style="text-align: center; width: 400px; height: 336px; margin-right: 25px;">
             <h2>Inscription au cycle d'ingenieur</h2>
             <p><?php echo $userData['fullname']; ?></p>
             <input type="number" name="note" placeholder="Moyen de 2 Année preparatoire" step="0.01" min="10.00" max="19.99" required>
@@ -198,6 +197,8 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
                 <option value="I">Informatique</option>
                 <option value="P">Physique</option>
             </select>
+    
+    
             <select size="1" name="ci" id="ci">
                 <option value="">Selectionner votre preference</option>
                 <option value="LSI">Logiciels et systèmes Intelligens</option>
@@ -206,8 +207,8 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
                 <option value="GEMI">Genie Electrique et Management Industriel</option>
                 <option value="GA">Genie Agroalimentaire</option>
             </select>
-
-
+    </div>
+<div class="section" style="text-align: center; width: 400px; height: auto; margin-left: 25px;">
         <div class="input-group">
             <p>Ajouter votre photo (JPG/PNG) :<br><B>la taille max 1MB</B></p>
             <input type="file" name="image" id="image" accept="image/jpeg,image/png">
@@ -222,6 +223,7 @@ function updateExcelFiles($studentData,$choix, $program, $moyen1) {
             <input type="submit" name="submit" value="Finish">
             <p style="color: red;"><?php echo $uploadError; ?></p>
         </div>
+    </div>
 </form>
 </body>
 </html>

@@ -125,21 +125,64 @@ $programNames = [
 include 'includes/header.php';
 ?>
 
-<div class="main-content" style="margin-left: 50px; width:auto">
-    <header>
-        <h1><?php echo $programNames[$program] ?></h1>
+<div class="main-content bg-gray-50 min-h-screen" style="margin-left: 50px; width:auto">
+    <header class="p-4">
+        <h1 class="text-2xl font-bold text-gray-800"><?php echo $programNames[$program] ?></h1>
     </header>
 
-    <section class="stats">
-        <div class="stat-box">Total Students <span><?php echo $stats['program_students']; ?></span></div>
-        <div class="stat-box">Female Students <span><?php echo $stats['female_students']; ?></span></div>
-        <div class="stat-box">Male Students <span><?php echo $stats['male_students']; ?></span></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+        <div class="bg-white rounded-lg shadow-sm p-6 transform hover:scale-105 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-500 text-sm">Total Students</p>
+                    <h3 class="text-2xl font-bold"><?php echo $stats['program_students']; ?></h3>
+                </div>
+                <div class="bg-blue-100 rounded-full p-3">
+                    <i class="bi bi-people text-blue-600"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-6 transform hover:scale-105 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-500 text-sm">Female Students</p>
+                    <h3 class="text-2xl font-bold"><?php echo $stats['female_students']; ?></h3>
+                </div>
+                <div class="bg-pink-100 rounded-full p-3">
+                    <i class="bi bi-gender-female text-pink-600"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-6 transform hover:scale-105 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-500 text-sm">Male Students</p>
+                    <h3 class="text-2xl font-bold"><?php echo $stats['male_students']; ?></h3>
+                </div>
+                <div class="bg-indigo-100 rounded-full p-3">
+                    <i class="bi bi-gender-male text-indigo-600"></i>
+                </div>
+            </div>
+        </div>
+
         <?php if (!$isMaster): ?>
             <?php foreach ($stats['diploma_distribution'] ?? [] as $diploma): ?>
-                <div class="stat-box"><?php echo $diploma['diplome']; ?> <span><?php echo $diploma['count']; ?></span></div>
+            <div class="bg-white rounded-lg shadow-sm p-6 transform hover:scale-105 transition-all">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm"><?php echo $diploma['diplome']; ?></p>
+                        <h3 class="text-2xl font-bold"><?php echo $diploma['count']; ?></h3>
+                    </div>
+                    <div class="bg-green-100 rounded-full p-3">
+                        <i class="bi bi-mortarboard text-green-600"></i>
+                    </div>
+                </div>
+            </div>
             <?php endforeach; ?>
         <?php endif; ?>
-    </section>
+    </div>
 
     <section class="grade-distribution">
         <h3>Grade Distribution</h3>

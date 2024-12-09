@@ -23,7 +23,7 @@ This project is a web-based application for managing student data. It includes f
 - **PHP 8.1+**
 - **PHPSpreadsheet**
 - **PHPMailer**
-- **HTML/CSS & Tailwind CSS/JavaScript**
+- **HTML/CSS & Tailwind CSS/JavaScript/Bootstrap**
 - **Bootstrap**
 - **AJAX**
 
